@@ -1,0 +1,20 @@
+{% extends 'index.html'%}
+{% block content %}
+<h1>{{message}}</h1>
+<ul>
+    {%for project in projects%}
+    <li><a href="{% url 'project' project.id %}">{{project.title}}</a>: {{project.description}}.</li>
+    {%endfor%}
+</ul>
+<h1>Number Checker</h1>
+{% if number > 10 %}
+<p>The given number is greater than 10</p>
+{% elif number == 10 %}
+<p>The given number is 10</p>
+{% else %}
+<p>The given number is less than 10</p>
+{% endif %}
+<hr>
+<h1>Footer</h1>
+
+{%endblock content%}
