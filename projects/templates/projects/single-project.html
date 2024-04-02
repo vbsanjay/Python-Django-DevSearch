@@ -2,6 +2,10 @@
 
 {% block content %}
 <h1>{{project.title}} Project</h1>
+<hr>
+{% for tag in tags %}
+<span style="border:1px solid grey">{{tag}}</span>
+{% endfor %}
 <p>
 {{project.description}}
 </p>
