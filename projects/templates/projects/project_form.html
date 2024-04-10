@@ -1,0 +1,10 @@
+{% extends 'index.html' %}
+{% block content %}
+<h1>Add details of your form below</h1>
+<form method="POST">
+    {% csrf_token %}
+    {{form}}
+</form>
+
+<button>Submit</button>
+{% endblock %}
