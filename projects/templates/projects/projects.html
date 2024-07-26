@@ -1,11 +1,26 @@
 {% extends 'index.html'%}
 {% block content %}
 <h1>{{message}}</h1>
-<ul>
+<table>
+    <tr>
+        <th>Sl. No</th>
+        <th>Project Name</th>
+        <th>Project Description</th>
+        <th>Votes</th>
+        <th>Ratio</th>
+        <th>Created on Date</th>
+    </tr>
     {%for project in projects%}
-    <li><a href="{% url 'project' project.id %}">{{project.title}}</a>: {{project.description}}</li>
+    <tr>
+        <td>{{forloop.counter}}</td>
+        <td><a href="{% url 'project' project.id}">{{project.title}}</a></td>
+        <td>{{project.description}}</td>
+        <td>{{project.vote_total}}</td>
+        <td>{{project.vote_ratio}}</td>
+        <td>{{project.created}}</td>
+    </tr>
     {%endfor%}
-</ul>
+</table>
 
 <h1>Footer</h1>
 
