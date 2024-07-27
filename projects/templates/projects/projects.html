@@ -9,15 +9,23 @@
         <th>Votes</th>
         <th>Ratio</th>
         <th>Created on Date</th>
+        <!-- <th>View</th> -->
+        <th>View</th>
+        <th>Edit</th>
+        <th>Delete</th>
     </tr>
     {%for project in projects%}
     <tr>
         <td>{{forloop.counter}}</td>
-        <td><a href="{% url 'project' project.id}">{{project.title}}</a></td>
+        <td>{{project.title}}</td>
         <td>{{project.description}}</td>
         <td>{{project.vote_total}}</td>
         <td>{{project.vote_ratio}}</td>
         <td>{{project.created}}</td>
+        <!-- <td><a href="project/{{project.id}}">View</a></td> -->
+        <td><a href="{% url 'project' project.id %}">View</a></td>
+        <td><a href="{% url 'update-project' project.id %}">Update</a></td>
+        <td><a href="{% url 'delete-project' project.id %}">Delete</a></td>
     </tr>
     {%endfor%}
 </table>
