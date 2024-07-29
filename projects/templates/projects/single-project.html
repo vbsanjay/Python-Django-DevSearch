@@ -1,6 +1,7 @@
 {% extends 'index.html' %}
-
 {% block content %}
+
+<img sryle src="{{ project.featured_image.url }}">
 <h1>{{project.title}} Project</h1>
 <hr>
 {% for tag in tags %}
