@@ -5,7 +5,8 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls), # username: vbsanjay password_hint: starts with H and ends with 2
-    path('', include('projects.urls')),
+    path('projects/', include('projects.urls')),
+    path('', include('users.urls')),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
