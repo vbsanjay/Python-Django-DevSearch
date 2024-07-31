@@ -22,7 +22,7 @@ class Profile(models.Model):
     id = models.UUIDField(primary_key = True, editable = False, unique = True, default=uuid.uuid4)
     
     def __str__(self):
-        return str(self.user.username)
+        return str(self.username)
 
 class Skill(models.Model):
     owner = models.ForeignKey(Profile, on_delete=models.CASCADE, null=True, blank=True)
