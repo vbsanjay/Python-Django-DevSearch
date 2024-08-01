@@ -1,7 +1,9 @@
 from django.shortcuts import render
 from .models import Profile
 
-# Create your views here.
+def loginPage(request):
+    return render(request, 'users/login_registers.html')
+
 def profiles(request):
     profiles = Profile.objects.all()
     context = {'profiles': profiles}
