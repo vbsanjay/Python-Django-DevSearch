@@ -16,7 +16,7 @@ def loginPage(request):
         user = authenticate(request, username=username, password=password)
 
         if user is not None:
-            login(request, user)
+            login(request, user) # this generate session id
             return redirect('profiles')
         else:
             print('username or password is incorrect')
