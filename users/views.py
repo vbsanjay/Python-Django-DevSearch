@@ -16,7 +16,9 @@ def loginPage(request):
         user = authenticate(request, username=username, password=password)
 
         if user is not None:
-            login(request, user) # this generate session id
+            # login function helps to generate session id
+            # when logged into our applicatio django admin also logged in
+            login(request, user)
             return redirect('profiles')
         else:
             print('username or password is incorrect')
