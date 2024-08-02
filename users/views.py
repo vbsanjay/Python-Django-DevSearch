@@ -4,6 +4,10 @@ from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.models import User
 
 def loginUser(request):
+
+    if request.user.is_authenticated:
+        return redirect('profiles')
+
     if request.method == 'POST':
         username = request.POST['username']
         password = request.POST['password']
@@ -33,7 +37,6 @@ def profiles(request):
     profiles = Profile.objects.all()
     context = {'profiles': profiles}
     return render(request, 'users/profiles.html', context)
-
 
 def userProfile(request, pk):
     userProfile = Profile.objects.get(id=pk)
