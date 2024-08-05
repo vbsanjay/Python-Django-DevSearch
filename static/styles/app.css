@@ -659,7 +659,7 @@ img {
   left: 0;
   bottom: 0;
   right: 0;
-  background: url(../images/pattern.jpg);
+  background: url(../image/pattern.jpg);
 }
 
 .auth > .card {
@@ -845,3 +845,5 @@ img {
   margin-bottom: 1rem;
   margin-top: 2rem;
 }
+
+
