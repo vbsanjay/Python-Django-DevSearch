@@ -13,11 +13,27 @@
               <p class="dev__title">{{userProfile.short_intro}}</p>
               <p class="dev__location">Based in {{userProfile.location}}</p>
               <ul class="dev__social">
-                <li><a title="Github" href="#" target="_blank"><i class="fab fa-github"></i></a></li>
-                <li><a title="Stackoverflow" href="#" target="_blank"><i class="fab fa-stack-overflow"></i></a></li>
-                <li><a title="Twitter" href="#" target="_blank"><i class="fab fa-twitter"></i></a></li>
-                <li><a title="LinkedIn" href="#" target="_blank"><i class="fab fa-linkedin"></i></a></li>
-                <li><a title="Personal Website" href="#" target="_blank"><i class="fas fa-globe"></i></a></li>
+
+                {% if userProfile.social_github %}
+                <li><a title="Github" href="{{userProfile.social_github}}" target="_blank"><i class="fab fa-github"></i></a></li>
+                {% endif %}
+                
+                {% if userProfile.social_youtube %}
+                <li><a title="Youtube" href="{{userProfile.social_youtube}}" target="_blank"><i class="fab fa-youtube"></i></a></li>
+                {% endif %}
+
+                {% if userProfile.social_x %}
+                <li><a title="Twitter" href="{{userProfile.social_x}}" target="_blank"><i class="fab fa-twitter"></i></a></li>
+                {% endif %}
+
+                {% if userProfile.social_linkedin %}
+                <li><a title="LinkedIn" href="{{userProfile.social_linkedin}}" target="_blank"><i class="fab fa-linkedin"></i></a></li>
+                {% endif %}
+
+                {% if userProfile.social_website %}
+                <li><a title="Personal Website" href="{{userProfile.social_website}}" target="_blank"><i class="fas fa-globe"></i></a></li>
+                {% endif %}
+                
               </ul>
               <a href="#" class="btn btn--sub btn--lg">Send Message </a>
             </div>
