@@ -1,16 +1,22 @@
 {% extends 'index.html' %}
 
 {% block content %}
-<form action="" method="POST">
-    {% csrf_token %}
-    <h3> Are you sure you want to delete this item "{{object}}"?</h3>
 
-    <a href="{% url 'projects' %}"> 
-        Go back 
-    </a>
+<main class="formPage my-xl">
+    <div class="content-box">
+        <div class="formWrapper">
+           
+            <form class="form" action="" method="POST">
+                {% csrf_token %}
+                <h3> Are you sure you want to delete "{{object}}"?</h3>
 
-    <p></p>
-
-    <input type="submit" value="Confirm" />
-</form>
+                <a class="btn btn--sub btn--lg  my-md" href="{{request.GET.next}}"> 
+                Go back 
+                </a>
+                
+                <input class="btn btn--sub btn--lg  my-md" type="submit" value="Confirm" />
+            </form>
+        </div>
+    </div>
+</main>
 {% endblock %}
