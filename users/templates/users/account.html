@@ -9,7 +9,7 @@
           <div class="card text-center">
             <div class="card__body dev">
 
-              <a class="tag tag--pill tag--main settings__btn" href="#"><i class="fas fa-edit"></i></i> Edit</a>
+              <a class="tag tag--pill tag--main settings__btn" href="{% url 'edit-account' %}"><i class="fas fa-edit"></i></i> Edit</a>
 
               <img class="avatar avatar--xl dev__avatar" src="{{profile.profile_image.url}}" />
 
@@ -77,7 +77,7 @@
   
           <div class="settings">
             <h3 class="settings__title">Projects</h3>
-            <a class="tag tag--pill tag--sub settings__btn tag--lg" href="#"><i class="fas fa-plus"></i> Add Project</a>
+            <a class="tag tag--pill tag--sub settings__btn tag--lg" href="{% url 'create-project' %}"><i class="fas fa-plus"></i> Add Project</a>
           </div>
   
           <table class="settings__table">
@@ -93,8 +93,8 @@
                 </p>
               </td>
               <td class="settings__tableActions">
-                <a class="tag tag--pill tag--main settings__btn" href="#"><i class="fas fa-edit"></i> Edit</a>
-                <a class="tag tag--pill tag--main settings__btn" href="#"><i class="fas fa-trash"></i>
+                <a class="tag tag--pill tag--main settings__btn" href="{% url 'update-project' project.id %}"><i class="fas fa-edit"></i> Edit</a>
+                <a class="tag tag--pill tag--main settings__btn" href="{% url 'delete-project' project.id %}"><i class="fas fa-trash"></i>
                   Delete</a>
               </td>
             </tr>
