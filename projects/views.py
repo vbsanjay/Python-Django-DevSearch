@@ -12,7 +12,7 @@ def projects(request):
     projectsList, search_query = searchProjects(request)
 
     page = request.GET.get('page')
-    results = 6
+    results = 3
     paginator = Paginator(projectsList, results)
 
     try:
@@ -24,7 +24,20 @@ def projects(request):
         page = paginator.num_pages
         projectsList = paginator.page(page)
 
-    context = {'projects': projectsList, 'search_query': search_query, 'paginator':paginator}
+    leftIndex = (int(page) - 4)
+
+    if leftIndex < 1:
+        leftIndex = 1
+
+    rightIndex = (int(page) + 5)
+
+    if rightIndex  > paginator.num_pages:
+        rightIndex = paginator.num_pages + 1
+    
+    custom_range = range(leftIndex, rightIndex)
+
+    context = {'projects': projectsList, 'search_query': search_query, 
+               'paginator':paginator, 'custom_range': custom_range}
     return render(request, 'projects/projects.html', context)
 
 def project(request, pk):
