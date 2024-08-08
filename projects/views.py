@@ -12,7 +12,7 @@ def projects(request):
     projectsList, search_query = searchProjects(request)
 
     page = request.GET.get('page')
-    results = 3
+    results = 6
     paginator = Paginator(projectsList, results)
 
     try:
