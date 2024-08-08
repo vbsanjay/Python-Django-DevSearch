@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .models import Profile
+from .models import Profile, Skill
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.models import User
 from django.contrib import messages
@@ -67,9 +67,14 @@ def profiles(request):
     if request.GET.get('search_query'):
         search_query = request.GET.get('search_query')
     
+    skills = Skill.objects.filter(name__icontains=search_query)
+    
     # name__icontains=search_query, short_intro__icontains=search_query line represent both name and short intro should contain letter we search for
     # from django.db.models import Q this will help us to return data if search value is present either in name or short intrp
-    profiles = Profile.objects.filter(Q(name__icontains=search_query) | Q(short_intro__icontains=search_query))
+    profiles = Profile.objects.distinct().filter(Q(name__icontains=search_query) | 
+                                      Q(short_intro__icontains=search_query) |
+                                      Q(skill__in=skills)) # skill__in=skills, this syntax for child object
+    
     context = {'profiles': profiles, 'search_query':search_query}
     return render(request, 'users/profiles.html', context)
 
