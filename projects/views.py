@@ -1,15 +1,24 @@
 from django.http import HttpResponse
 from django.shortcuts import redirect, render
-from .models import Project
-from .forms import ProjectForm
 from django.contrib.auth.decorators import login_required
+from django.db.models import Q
 
+from .models import Project, Tag
+from .forms import ProjectForm
 
 # Create your views here.
 def projects(request):
-    msg = "Projects your fellow developers made"
-    projectsList = Project.objects.all()
-    return render(request, 'projects/projects.html', context={'message':msg, 'projects': projectsList})
+    search_query = ''
+
+    if request.GET.get('search_query'):
+        search_query = request.GET.get('search_query')
+    
+    projectsList = Project.objects.filter(
+        Q(title__icontains=search_query) |
+        Q(description__icontains=search_query) |
+        Q(owner__name__icontains=search_query) # get into parent object(owner) check for attribut name in parent object
+    )
+    return render(request, 'projects/projects.html', context={'projects': projectsList})
 
 def project(request, pk):
     projectObj = Project.objects.get(id = pk)
