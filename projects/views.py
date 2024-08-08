@@ -13,10 +13,13 @@ def projects(request):
     if request.GET.get('search_query'):
         search_query = request.GET.get('search_query')
     
-    projectsList = Project.objects.filter(
+    tags = Tag.objects.filter(name__icontains=search_query)
+    
+    projectsList = Project.objects.distinct().filter(
         Q(title__icontains=search_query) |
         Q(description__icontains=search_query) |
-        Q(owner__name__icontains=search_query) # get into parent object(owner) check for attribut name in parent object
+        Q(owner__name__icontains=search_query) | # get into parent object(owner) check for attribut name in parent object
+        Q(tags__in=tags) #searching for many to many fields
     )
     return render(request, 'projects/projects.html', context={'projects': projectsList})
 
