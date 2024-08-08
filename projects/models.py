@@ -28,14 +28,18 @@ class Review(models.Model):
         ('up', 'UP VOTE'),
         ('down', 'DOWN VOTE'),
     )
-    text = models.TextField(blank = True, null=True)
+    owner = models.ForeignKey(Profile, on_delete=models.CASCADE, null=True)
+    body = models.TextField(blank = True, null=True)
     project = models.ForeignKey(Project, on_delete=models.CASCADE)
-    vote = models.CharField(max_length = 200, choices = VOTE_TYPE)
+    value = models.CharField(max_length = 200, choices = VOTE_TYPE)
     created = models.DateTimeField(auto_now_add = True)
     id = models.UUIDField(primary_key = True, editable = False, unique = True, default=uuid.uuid4)
 
+    class Meta:
+        unique_together = [['owner', 'project']] # making sure only one time a user can review
+
     def __str__(self):
-        return self.vote
+        return self.value
 
 class Tag(models.Model):
     name = models.CharField(max_length = 200)
