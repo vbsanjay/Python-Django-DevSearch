@@ -43,18 +43,26 @@
                 {{project.vote_ratio}}% Postitive Feedback 
                 ({{project.vote_total}} Vote{{project.vote_total|pluralize:"s"}})
             </h5>
-
+            {% if request.user.profile.id in project.reviewers %}
+            <p> You have already submitted your review for this project <p>
+            {% elif request.user.profile == project.owner %}
+            <p> You cannot review your own work </p>
+            {% elif request.user.is_authenticated %}
             <form class="form" action="{% url 'project' project.id %}" method="POST">
-              {% csrf_token %}
-              {% for field in form %}
-              <div class="form__field">
-                  <label for="formInput#textarea">{{field.label}}</label>
-                  {{field}}
-              </div>
-              {% endfor %}
-              <input class="btn btn--sub btn--lg" type="submit" value="Add Review" />
-          </form>
-          </form>
+                {% csrf_token %}
+                {% for field in form %}
+                <div class="form__field">
+                    <p>{{field.label}}</p>
+                    <label for="formInput#text">{{field.label}}</label>
+                      {{field}}
+                </div>
+                {% endfor %}
+                <input class="btn btn--sub btn--lg" type="submit" value="Add Review" />
+            </form>
+            {% else %}
+            <a href="{% url 'login' %}?next={{request.path}}">Please login to leave a comment </a>
+            {% endif %}
+        
             <div class="commentList">
               {% for review in project.review_set.all %}
               {% if review.body %}
@@ -66,7 +74,7 @@
                 <div class="comment__details">
                   <a href="{% url 'user-profile' review.owner.id %}" class="comment__author">{{review.owner.name}}</a>
                   <p class="comment__info">
-                    {{review.text|linebreaksbr}}
+                    {{review.body|linebreaksbr}}
                   </p>
                 </div>
               </div>
