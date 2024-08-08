@@ -1,27 +1,16 @@
 from django.http import HttpResponse
 from django.shortcuts import redirect, render
 from django.contrib.auth.decorators import login_required
-from django.db.models import Q
 
 from .models import Project, Tag
 from .forms import ProjectForm
+from .utils import searchProjects
 
 # Create your views here.
 def projects(request):
-    search_query = ''
-
-    if request.GET.get('search_query'):
-        search_query = request.GET.get('search_query')
-    
-    tags = Tag.objects.filter(name__icontains=search_query)
-    
-    projectsList = Project.objects.distinct().filter(
-        Q(title__icontains=search_query) |
-        Q(description__icontains=search_query) |
-        Q(owner__name__icontains=search_query) | # get into parent object(owner) check for attribut name in parent object
-        Q(tags__in=tags) #searching for many to many fields
-    )
-    return render(request, 'projects/projects.html', context={'projects': projectsList})
+    projectsList, search_query = searchProjects(request)
+    context = {'projects': projectsList, 'search_query': search_query}
+    return render(request, 'projects/projects.html', context)
 
 def project(request, pk):
     projectObj = Project.objects.get(id = pk)
