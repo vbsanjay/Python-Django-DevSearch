@@ -1,6 +1,7 @@
 from django.http import HttpResponse
 from django.shortcuts import redirect, render
 from django.contrib.auth.decorators import login_required
+from django.core.paginator import Paginator
 
 from .models import Project, Tag
 from .forms import ProjectForm
@@ -9,6 +10,13 @@ from .utils import searchProjects
 # Create your views here.
 def projects(request):
     projectsList, search_query = searchProjects(request)
+
+    page = 2
+    results = 3
+    paginator = Paginator(projectsList, results)
+
+    projectsList = paginator.page(page)
+
     context = {'projects': projectsList, 'search_query': search_query}
     return render(request, 'projects/projects.html', context)
 
