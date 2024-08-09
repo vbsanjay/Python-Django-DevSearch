@@ -15,7 +15,7 @@ def loginUser(request):
         return redirect('profiles')
 
     if request.method == 'POST':
-        username = request.POST['username']
+        username = request.POST['username'].lower()
         password = request.POST['password']
 
         try:
@@ -29,7 +29,7 @@ def loginUser(request):
             # login function helps to generate session id
             # when logged into our applicatio django admin also logged in
             login(request, user)
-            return redirect('profiles')
+            return redirect(request.GET['next'] if 'next' in request.GET else 'account')
         else:
             messages.error(request, "Username or Password is incorrect")
 
