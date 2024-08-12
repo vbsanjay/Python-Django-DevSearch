@@ -56,6 +56,7 @@ def updateProject(request, pk):
     profile = request.user.profile
     project = profile.project_set.get(id=pk)
     form = ProjectForm(instance=project)
+
     if request.method == 'POST':
         newtags = request.POST.get('newtags').replace(','," ").split()
         form = ProjectForm(request.POST,request.FILES, instance=project)
@@ -67,7 +68,8 @@ def updateProject(request, pk):
                 project.tags.add(tag)
             return redirect('account')
         
-    return render(request, 'projects/project_form.html', context = {'form': form})
+    context = {'form': form, 'project': project}
+    return render(request, 'projects/project_form.html', context)
 
 @login_required(login_url='login')
 def deleteProject(request, pk):
