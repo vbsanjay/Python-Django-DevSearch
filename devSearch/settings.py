@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-ge-@hkgnd)-@mi6bbdy=nv#bl48f4h%anre*g&cp-ns7hy32@f
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1','talentpool-4c2b160d7f16.herokuapp.com']
 
 
 # Application definition
@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'users.apps.UsersConfig',
 
     'rest_framework',
+    'storages'
 ]
 
 REST_FRAMEWORK = {
@@ -97,6 +98,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    "django.middleware.security.SecurityMiddleware",
+    "whitenoise.middleware.WhiteNoiseMiddleware",
 ]
 
 ROOT_URLCONF = 'devSearch.urls'
@@ -129,9 +132,9 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'devsearch',
-        'USER': 'postgres',
-        'PASSWORD': 'postgres',
-        'HOST': 'localhost',
+        'USER': 'vbsanjay',
+        'PASSWORD': 'Dummy123',
+        'HOST': 'database-1.c1qu6e4kkbv9.us-east-2.rds.amazonaws.com',
         'PORT':'5432',
 
     }
@@ -196,4 +199,41 @@ STATICFILES_DIRS = [BASE_DIR / 'static']
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'static/image')
-# STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+# DEFAULT_FILE_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
+
+# AWS_ACCESS_KEY_ID = ''
+
+# AWS_SECRET_ACCESS_KEY = ''
+
+# AWS_STORAGE_BUCKET_NAME = 'devsearch-vb-bucket'
+
+from storages.backends.s3boto3 import S3Boto3Storage
+
+# S3 Storage configuration
+STORAGES = {
+    "default": {
+        "BACKEND": "storages.backends.s3boto3.S3Boto3Storage",
+    },
+    "staticfiles": {
+        "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage",
+    },
+}
+
+# AWS credentials and settings
+AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
+AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
+AWS_STORAGE_BUCKET_NAME = 'devsearch-vb-bucket'
+
+AWS_S3_REGION_NAME = 'us-east-2'
+AWS_S3_SIGNATURE_VERSION = 's3v4'
+
+AWS_S3_ADDRESSING_STYLE = "virtual"
+
+AWS_QUERYSTRING_AUTH = False
+AWS_S3_FILE_OVERWRITE = False
+
+
+if os.getcwd() == '/app':
+    DEBUG = False
