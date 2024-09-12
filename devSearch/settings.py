@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 from datetime import timedelta
 from pathlib import Path
 import os
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -42,7 +43,6 @@ INSTALLED_APPS = [
     'users.apps.UsersConfig',
 
     'rest_framework',
-    'storages'
 ]
 
 REST_FRAMEWORK = {
@@ -131,21 +131,14 @@ WSGI_APPLICATION = 'devSearch.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'devsearch',
-        'USER': 'vbsanjay',
-        'PASSWORD': 'Dummy123',
-        'HOST': 'database-1.c1qu6e4kkbv9.us-east-2.rds.amazonaws.com',
-        'PORT':'5432',
+        'NAME': 'postgres',
+        'USER': 'postgres.sfcutwjjtvzaqtigkktd',
+        'PASSWORD': 'Hrun*102@815',
+        'HOST': 'aws-0-ap-south-1.pooler.supabase.com',
+        'PORT':'6543',
 
     }
 }
-
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-# }
 
 
 # Password validation
@@ -201,39 +194,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'static/image')
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
-# DEFAULT_FILE_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
-
-# AWS_ACCESS_KEY_ID = ''
-
-# AWS_SECRET_ACCESS_KEY = ''
-
-# AWS_STORAGE_BUCKET_NAME = 'devsearch-vb-bucket'
-
-from storages.backends.s3boto3 import S3Boto3Storage
-
-# S3 Storage configuration
-STORAGES = {
-    "default": {
-        "BACKEND": "storages.backends.s3boto3.S3Boto3Storage",
-    },
-    "staticfiles": {
-        "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage",
-    },
-}
-
-# AWS credentials and settings
-AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
-AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
-AWS_STORAGE_BUCKET_NAME = 'devsearch-vb-bucket'
-
-AWS_S3_REGION_NAME = 'us-east-2'
-AWS_S3_SIGNATURE_VERSION = 's3v4'
-
-AWS_S3_ADDRESSING_STYLE = "virtual"
-
-AWS_QUERYSTRING_AUTH = False
-AWS_S3_FILE_OVERWRITE = False
-
 
 if os.getcwd() == '/app':
-    DEBUG = False
+    DEBUG = True
